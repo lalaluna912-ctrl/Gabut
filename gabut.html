@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Haiii Manisss</title>
+
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at bottom, #0b1d33, #020409 70%);
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ===== STARS ===== */
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation:
+      twinkle 2s infinite alternate,
+      drift linear infinite;
+  }
+
+  @keyframes twinkle {
+    from { opacity: 0.3; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes drift {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-120vh); }
+  }
+
+  /* ===== SHOOTING STAR ===== */
+  .shooting {
+    position: absolute;
+    width: 160px;
+    height: 2px;
+    background: linear-gradient(90deg, white, transparent);
+    opacity: 0.9;
+    animation: shoot 1.6s ease-in-out forwards;
+  }
+
+  @keyframes shoot {
+    to {
+      transform: translate(-420px,420px);
+      opacity: 0;
+    }
+  }
+
+  /* ===== LOVE EFFECT ===== */
+  .love {
+    position: absolute;
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    animation: loveFloat 6s linear forwards;
+  }
+
+  @keyframes loveFloat {
+    from {
+      transform: translateY(0) scale(1);
+      opacity: 0.9;
+    }
+    to {
+      transform: translateY(-120vh) scale(1.4);
+      opacity: 0;
+    }
+  }
+
+  /* ===== CARD ===== */
+  .card {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+    padding: 34px 36px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(255,255,255,0.08);
+    z-index: 10;
+    animation: fadeIn 1s ease;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+
+  p {
+    margin-top: 10px;
+    font-size: 15px;
+    opacity: 0.8;
+  }
+
+  button {
+    margin-top: 24px;
+    padding: 10px 28px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: white;
+    color: black;
+  }
+
+  .hidden { display: none; }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="lagu-slow.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="one">
+  <h1>Haii gantengg</h1>
+  <button onclick="next()">tap</button>
+</div>
+
+<div class="card hidden" id="two">
+  <h1>Enjoy your night.</h1>
+  <p>Mwwwaahhhh.</p>
+</div>
+
+<script>
+  /* STARS */
+  for (let i = 0; i < 160; i++) {
+    let star = document.createElement("div");
+    star.className = "star";
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 120 + "vh";
+    star.style.animationDuration =
+      (Math.random() * 3 + 2) + "s, " +
+      (Math.random() * 50 + 40) + "s";
+    document.body.appendChild(star);
+  }
+
+  function next() {
+    document.getElementById("one").classList.add("hidden");
+    document.getElementById("two").classList.remove("hidden");
+    document.getElementById("music").play();
+    startLove();
+  }
+
+  /* SHOOTING STAR – MORE OFTEN */
+  setInterval(() => {
+    let s = document.createElement("div");
+    s.className = "shooting";
+    s.style.top = Math.random() * 50 + "vh";
+    s.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 1600);
+  }, 3000); // ← lebih sering (3 detik)
+
+  /* LOVE FLOAT – MORE OFTEN */
+  function startLove() {
+    setInterval(() => {
+      let l = document.createElement("div");
+      l.className = "love";
+      l.innerText = "🤍";
+      l.style.left = Math.random() * 100 + "vw";
+      l.style.bottom = "-20px";
+      document.body.appendChild(l);
+      setTimeout(() => l.remove(), 6000);
+    }, 600); // ← lebih sering (0.6 detik)
+  }
+</script>
+
+</body>
+</html>
